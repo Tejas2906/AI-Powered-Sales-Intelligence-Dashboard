@@ -173,9 +173,3 @@ python generate_executive_engine.py
 ## 👨‍💻 Author
 
 **Tejas Kapse**
-
----
-
-## ⭐ Show Your Support
-
-If you found this project useful, consider giving it a ⭐ on GitHub!
