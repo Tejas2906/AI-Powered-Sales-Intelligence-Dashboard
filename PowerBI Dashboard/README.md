@@ -97,4 +97,4 @@ The dashboard is designed to:
 ### 🖥️ Dashboard Preview
 
 ```md
-![Dashboard Overview](screenshots/dashboard_overview.png)
+![Dashboard Overview]([screenshots/dashboard_overview.png](https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/main/Screenshots/Dashboard.png)
