@@ -4,6 +4,12 @@ The **AI-Powered Sales Intelligence Dashboard** (built using Power BI) provides 
 
 ---
 
+### 🖥️ Dashboard Preview
+
+![Dashboard Overview](https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/main/Screenshots/Dashboard.png)
+
+---
+
 ### 🎯 Purpose
 
 The dashboard is designed to:
@@ -92,10 +98,5 @@ The dashboard is designed to:
 - Better resource allocation 💼  
 - Enhanced visibility across business operations 👀  
 
----
 
-### 🖥️ Dashboard Preview
-
-
-![Dashboard Overview](https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/main/Screenshots/Dashboard.png)
 ```
