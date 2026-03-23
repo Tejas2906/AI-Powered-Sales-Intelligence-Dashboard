@@ -1,202 +1,259 @@
----
+
 ## 🏗️ System Architecture
 
-The **AI-Powered Sales Intelligence Dashboard** is built using a **layered and modular architecture** that transforms raw sales data into actionable business insights through a seamless flow of data engineering, analytics, and AI.
+The **AI-Powered Sales Intelligence Dashboard** is designed as a **complete end-to-end data pipeline** that transforms raw sales data into actionable business insights using **Data Engineering, Data Warehousing, Business Intelligence, and Generative AI**.
 
-This architecture ensures:
-- ⚡ Automated data processing  
-- 📊 Scalable analytics  
-- 🤖 AI-driven intelligence  
-- 🔄 End-to-end pipeline execution  
+The architecture follows a **Star Schema (as implemented in the Power BI Model View)** where a central fact table connects with multiple dimension tables, enabling scalable and high-performance analytics.
 
 ---
 
-## 🔄 Architecture Flow
+## 🔄 End-to-End Pipeline Flow
 
+# 🧩 System Architecture (Block Diagram)
 
-flowchart TD
-    A[Sales API] --> B[Data Ingestion Pipeline (Python Scripts)]
-    B --> C[Data Cleaning & Transformation]
-    C --> D[Data Warehouse Tables]
-    D --> E[AI Summary Table Generation]
-    E --> F[Power BI Dashboard]
-    F --> G[Business Insights]
+```text
++----------------------+
+|      Sales API       |
++----------+-----------+
+           |
+           v
++-------------------------------+
+| Data Ingestion Pipeline       |
+| (Python Scripts)              |
++----------+--------------------+
+           |
+           v
++-------------------------------+
+| Data Cleaning & Transformation|
++----------+--------------------+
+           |
+           v
++-------------------------------+
+| Data Warehouse (Star Schema)  |
+| fact_sales + dimension tables |
++----------+--------------------+
+           |
+           v
++-------------------------------+
+| AI Summary Table Generation   |
++----------+--------------------+
+           |
+           v
++-------------------------------+
+| Power BI Dashboard            |
+| (Model View + Visuals)        |
++----------+--------------------+
+           |
+           v
++----------------------+
+|   Business Insights  |
++----------------------+
 
+```
 ---
 
-## 📡 1. Sales API (Data Source)
+## 📡 1. Sales API (Data Source Layer)
 
-The pipeline begins with the **Sales API**, which acts as the primary source of data.
+The pipeline begins with a **Sales API**, which provides raw transactional data.
 
-### 🔍 What it does:
+### 🔍 Data Includes:
 
-* Provides raw sales transaction data
-* Returns structured data (JSON/CSV format)
-* Includes:
+* Product details
+* Customer information
+* Region and location data
+* Sales channel information
+* Promotions and discounts
+* Transaction metrics (quantity, cost, profit)
+* Date and time data
 
-  * Product details
-  * Region information
-  * Category data
-  * Sales amount and quantity
-  * Transaction timestamps
+### 💡 Purpose:
 
-### 💡 Why it matters:
-
-This is the **foundation of the system**, ensuring a continuous flow of fresh and relevant business data.
+Acts as the **primary data source**, ensuring continuous and reliable data flow into the system.
 
 ---
 
 ## ⚙️ 2. Data Ingestion Pipeline (Python Scripts)
 
-This layer is responsible for **automatically fetching and storing data** from the API.
+This layer automates the process of extracting and loading data.
 
-### 🛠️ Key Components:
+### 🛠️ Components:
 
-* `api_fetch.py` → Extracts data from API
-* Logging system → Tracks execution
-* Error handling → Ensures reliability
-* Scheduler → Automates runs (Cron / Task Scheduler)
+* `api_fetch.py` → Fetches data from API
+* Scheduler (Cron / Task Scheduler)
+* Logging & error handling
 
-### 🔍 Key Functions:
+### 🔍 Responsibilities:
 
 * API calls and authentication
 * Data extraction and parsing
-* Initial validation checks
-* Storing raw data for processing
+* Initial validation
+* Storing raw data
 
-### 💡 Why it matters:
+### 💡 Purpose:
 
-* Eliminates manual work
-* Ensures **consistent and automated data flow**
-* Makes the system production-ready
+Ensures **automated, consistent, and scalable data ingestion**.
 
 ---
 
 ## 🧹 3. Data Cleaning & Transformation
 
-Raw data is often messy and inconsistent. This stage ensures it becomes **analysis-ready**.
+Raw data is transformed into a structured and analysis-ready format.
 
 ### 🔍 Key Operations:
 
-#### 🧼 Data Cleaning:
-
 * Handling missing/null values
 * Removing duplicates
-* Fixing inconsistent formats
+* Standardizing formats
+* Creating calculated fields (profit, revenue)
+* Normalizing data into fact and dimension tables
 
-#### 🔄 Data Transformation:
+### 💡 Purpose:
 
-* Structuring data into meaningful formats
-* Creating calculated fields (e.g., revenue)
-* Normalizing datasets
-
-### 💡 Why it matters:
-
-* Improves **data quality and accuracy**
-* Ensures reliable analytics and reporting
+Ensures **high-quality, consistent, and reliable data** for analytics.
 
 ---
 
-## 🏗️ 4. Data Warehouse Tables
+## 🏗️ 4. Data Warehouse (Star Schema - Model View)
 
-Processed data is stored in a **Star Schema**, optimized for analytical queries.
+This stage reflects the **Power BI Model View shown in the project**, where all tables are connected in a star schema format.
 
-### ⭐ Tables Used:
+---
 
-| Table Name     | Type       | Description               |
-| -------------- | ---------- | ------------------------- |
-| `fact_sales`   | Fact Table | Stores transactional data |
-| `dim_product`  | Dimension  | Product details           |
-| `dim_region`   | Dimension  | Region information        |
-| `dim_category` | Dimension  | Product categories        |
+### ⭐ Fact Table
 
-### 🔗 Relationships:
+#### `fact_sales`
 
-* `fact_sales.product_id` → `dim_product.product_id`
-* `fact_sales.region_id` → `dim_region.region_id`
-* `fact_sales.category_id` → `dim_category.category_id`
+Stores transactional data and metrics.
 
-### 💡 Why it matters:
+**Key Columns:**
 
-* Enables **fast queries and aggregations**
-* Acts as the **single source of truth**
-* Supports BI tools efficiently
+* `product_id`
+* `region_id`
+* `customer_id`
+* `channel_id`
+* `promotion_id`
+* `date_id`
+* `quantity`
+* `cost`
+* `profit`
+
+---
+
+### 📦 Dimension Tables
+
+| Table Name      | Description                    |
+| --------------- | ------------------------------ |
+| `dim_product`   | Product details                |
+| `dim_region`    | Geographic data                |
+| `dim_customer`  | Customer segmentation          |
+| `dim_channel`   | Sales channel information      |
+| `dim_promotion` | Promotion and campaign details |
+| `dim_date`      | Date and time attributes       |
+
+---
+
+### 🔗 Relationships (Model View)
+
+All dimension tables are connected to `fact_sales` using **One-to-Many (1 → *) relationships**:
+
+| Fact Column  | Dimension Table |
+| ------------ | --------------- |
+| product_id   | dim_product     |
+| region_id    | dim_region      |
+| customer_id  | dim_customer    |
+| channel_id   | dim_channel     |
+| promotion_id | dim_promotion   |
+| date_id      | dim_date        |
+
+---
+
+### 💡 Why This Model?
+
+* ⚡ Fast query performance
+* 📊 Efficient aggregations
+* 🔍 Easy filtering and slicing
+* 📈 Optimized for Power BI dashboards
 
 ---
 
 ## 🤖 5. AI Summary Table Generation
 
-This layer introduces **Generative AI into analytics**, converting structured data into human-readable insights.
+This layer adds **Generative AI capabilities** to the system.
 
-### 🧠 How it works:
+### 🧠 Process:
 
-1. Aggregates data from warehouse tables
-2. Applies AI/LLM or logic-based analysis
-3. Generates natural language summaries
-4. Stores output in an **AI Summary Table**
+1. Extract aggregated data from warehouse tables
+2. Apply AI/LLM or rule-based logic
+3. Generate human-readable insights
+4. Store results in an **AI Summary Table**
+
+---
 
 ### 📊 Example Insights:
 
 * 🏆 Top-selling products
 * 🌍 Highest revenue regions
-* 📦 Category performance trends
-* 📅 Monthly growth or decline
+* 📦 Category-wise trends
+* 📅 Monthly performance summary
 * ⚠️ Sales anomalies
-
-### 💡 Why it matters:
-
-* Reduces manual analysis
-* Makes insights accessible to non-technical users
-* Adds **intelligence layer to data systems**
 
 ---
 
-## 📊 6. Power BI Dashboard
+### 💡 Purpose:
 
-The processed data and AI insights are visualized using **Power BI**.
+Transforms raw data into **business-friendly insights**, reducing manual analysis effort.
+
+---
+
+## 📊 6. Power BI Dashboard (Model View + Visualization)
+
+The dashboard is built directly on top of the **same star schema model view**.
 
 ### 🔍 Features:
 
-* KPI dashboards (Revenue, Orders, Growth)
-* Trend analysis over time
-* Region-wise and category-wise breakdown
-* Integration of AI-generated insights
+* KPI metrics (Revenue, Profit, Orders)
+* Time-based analysis using `dim_date`
+* Region-wise performance
+* Customer segmentation
+* Channel performance
+* Promotion effectiveness
+* AI insights integration
 
-### 💡 Why it matters:
+---
 
-* Converts data into **visual storytelling**
-* Enables **interactive exploration**
-* Helps stakeholders understand data quickly
+### 💡 Purpose:
+
+Provides **interactive and visual analytics** for business users.
 
 ---
 
 ## 💡 7. Business Insights (Final Output)
 
-This is the final stage where data is transformed into **actionable insights** for decision-making.
+This is the final stage where insights are delivered to stakeholders.
 
 ### 📈 Key Outcomes:
 
 * Identify top-performing products
-* Analyze regional performance
-* Understand sales trends
-* Detect growth opportunities and risks
+* Analyze customer behavior
+* Evaluate marketing campaigns
+* Optimize sales channels
+* Understand regional trends
 
-### 💡 Why it matters:
+---
 
-* Enables **data-driven decisions**
-* Improves business strategy
-* Enhances operational efficiency
+### 💡 Purpose:
+
+Enables **data-driven decision-making** and improves business performance.
 
 ---
 
 ## 🚀 Architecture Highlights
 
 * 🔄 Fully automated pipeline
-* 🧱 Modular and scalable design
-* ⚡ Efficient Python-based processing
-* 🏢 Optimized data warehouse (Star Schema)
-* 🤖 AI-powered insight generation
-* 📊 Interactive dashboard integration
+* 🧱 Star schema aligned with Power BI Model View
+* ⚡ High-performance analytics
+* 🤖 AI-powered insights generation
+* 📊 Multi-dimensional analysis
 
 ---
 
@@ -204,10 +261,11 @@ This is the final stage where data is transformed into **actionable insights** f
 
 This architecture combines:
 
-* ⚙️ Data Engineering
-* 🏗️ Data Warehousing
-* 📊 Business Intelligence
-* 🤖 Generative AI
+* ⚙️ Data Engineering (API + ETL)
+* 🏗️ Data Warehousing (Star Schema)
+* 📊 Business Intelligence (Power BI)
+* 🤖 Generative AI (Insights Layer)
 
-👉 Creating a **complete modern analytics system** that mirrors real-world industry solutions.
+👉 Making it a **real-world, production-level analytics system** suitable for modern data roles.
 
+---
