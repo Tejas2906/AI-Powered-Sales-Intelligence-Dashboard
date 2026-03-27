@@ -70,6 +70,8 @@ The dashboard is designed to:
 
 👉 Reduces manual analysis effort using AI-driven intelligence.
 
+![AI Generated Summary](https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/0e8b7a8d4e62a21cd59664662f2b8869c2b97a5a/Screenshots/AI%20Bussiness%20Summary.png)
+
 ---
 
 #### 6️⃣ Filters & Interactivity
