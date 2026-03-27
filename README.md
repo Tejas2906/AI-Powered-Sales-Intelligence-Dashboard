@@ -6,7 +6,6 @@ The **AI-Powered Sales Intelligence Dashboard** is a full-stack, end-to-end data
 
 This system integrates **data engineering, analytics, and AI-driven decision intelligence** to help business stakeholders understand performance, identify risks, and take strategic actions.
 
-![Dashboard Overview]
 ---
 
 ## 🎯 Key Objectives
