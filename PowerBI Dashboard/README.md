@@ -99,4 +99,3 @@ The dashboard is designed to:
 - Improved sales strategy 📈  
 - Better resource allocation 💼  
 - Enhanced visibility across business operations 👀  
-```
