@@ -6,7 +6,7 @@ The **AI-Powered Sales Intelligence Dashboard** (built using Power BI) provides 
 
 ### 🖥️ Dashboard Preview
 
-![Dashboard Overview](https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/main/Screenshots/Dashboard.png)
+![Dashboard Overview][(https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/main/Screenshots/Dashboard.png)](https://github.com/Tejas2906/AI-Powered-Sales-Intelligence-Dashboard/blob/f4ace192803b5583da45d2019de10a34bdee44e7/Screenshots/Dashboard.png)
 
 ---
 
